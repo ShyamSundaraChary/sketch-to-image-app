@@ -31,5 +31,5 @@ CLIPDROP_API_KEY=your_api_key_here
 python app.py
 ##5️⃣ Open in Browser
 Go to http://127.0.0.1:5000/
-
+Done
 
