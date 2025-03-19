@@ -11,6 +11,36 @@ canvas.addEventListener("mouseup", stopDrawing);
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseout", stopDrawing);
 
+document.getElementById("clearButton").addEventListener("click", clearCanvas);
+document.getElementById("eraseButton").addEventListener("click", toggleErase);
+document.getElementById("saveButton").addEventListener("click", openPromptModal);
+document.getElementById("downloadSketchButton").addEventListener("click", downloadSketch);
+document.getElementById("downloadGeneratedButton").addEventListener("click", downloadGeneratedImage);
+
+const modal = document.getElementById("promptModal");
+const closeModal = document.getElementsByClassName("close")[0];
+const submitPrompt = document.getElementById("submitPrompt");
+
+closeModal.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+submitPrompt.onclick = function() {
+    const promptText = document.getElementById("promptText").value;
+    if (!promptText) {
+        alert("Please enter a description.");
+        return;
+    }
+    modal.style.display = "none";
+    saveSketch(promptText);
+}
+
 function startDrawing(event) {
     drawing = true;
     isCanvasEmpty = false;
@@ -51,42 +81,25 @@ function clearCanvas() {
     ctx.beginPath();
 }
 
-function undo() {
-    if (paths.length === 0) return;
-    paths.pop(); // Remove the last path
-    redrawCanvas();
-}
-
-function redrawCanvas() {
-    clearCanvas();
-    paths.forEach(path => {
-        if (path.length < 2) return;
-        ctx.beginPath();
-        ctx.moveTo(path[0].x, path[0].y);
-        for (let i = 1; i < path.length; i++) {
-            ctx.lineTo(path[i].x, path[i].y);
-        }
-        ctx.stroke();
-    });
-}
-
 function toggleErase() {
     isErasing = !isErasing;
-    const eraseButton = document.querySelector(".toolbar button:nth-child(5)"); // Target "Erase" button
+    const eraseButton = document.getElementById("eraseButton"); // Target "Erase" button
     eraseButton.style.background = isErasing 
         ? "linear-gradient(45deg, #ff4a4a, #ff7878)" 
         : "linear-gradient(45deg, #00c4cc, #8a4af3)";
     eraseButton.textContent = isErasing ? "Draw" : "Erase";
+    canvas.style.cursor = isErasing ? "url('eraser-icon.png'), auto" : "crosshair"; // Change cursor to eraser icon
 }
 
-function saveSketch() {
+function openPromptModal() {
+    modal.style.display = "block";
+}
+
+function saveSketch(promptText) {
     if (isCanvasEmpty) {
         alert("Please draw something before generating!");
         return;
     }
-
-    const promptText = prompt("Enter image description (e.g., 'vibrant forest'):");
-    if (!promptText) return;
 
     const dataURL = canvas.toDataURL("image/png");
     fetch(dataURL)
@@ -109,6 +122,25 @@ function saveSketch() {
                 })
                 .catch(error => alert("Error: " + error.message));
         });
+}
+
+function downloadSketch() {
+    const link = document.createElement('a');
+    link.download = 'sketch.png';
+    link.href = canvas.toDataURL();
+    link.click();
+}
+
+function downloadGeneratedImage() {
+    const generatedImage = document.getElementById("generatedImage");
+    if (generatedImage.src) {
+        const link = document.createElement('a');
+        link.download = 'generated_image.png';
+        link.href = generatedImage.src;
+        link.click();
+    } else {
+        alert("No generated image to download.");
+    }
 }
 
 // Initialize canvas
