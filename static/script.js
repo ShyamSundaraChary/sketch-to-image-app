@@ -288,13 +288,11 @@ function saveSketch(promptText) {
     return;
   }
 
-  // Show loading state
   const generateButton = document.getElementById("saveButton");
   const originalText = generateButton.innerHTML;
   generateButton.innerHTML =
     '<i class="fas fa-spinner fa-spin"></i> Generating...';
   generateButton.disabled = true;
-  generateButton.style.margin = "0 auto"; // Center the button
 
   const dataURL = canvas.toDataURL("image/png");
   fetch(dataURL)
@@ -309,34 +307,26 @@ function saveSketch(promptText) {
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(
-          `Generation failed: ${response.status} ${response.statusText}`
-        );
+        return response.json().then((err) => {
+          throw new Error(err.error || "Unknown error");
+        });
       }
       return response.blob();
     })
     .then((blob) => {
       const imgURL = URL.createObjectURL(blob);
       const generatedImage = document.getElementById("generatedImage");
-      const imageContainer = document.querySelector(".image-container");
-
-      // Show the image container and generated image
-      imageContainer.style.display = "flex";
       generatedImage.src = imgURL;
       generatedImage.style.display = "block";
-
-      // Show success message
       alert("Image generated successfully!");
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert("Error generating image: " + error.message);
+      alert(`Error generating image: ${error.message}`);
     })
     .finally(() => {
-      // Reset button state
       generateButton.innerHTML = originalText;
       generateButton.disabled = false;
-      generateButton.style.margin = "0 auto"; // Keep button centered
     });
 }
 
