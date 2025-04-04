@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Sketch Studio</title>
+    <title>Sketch to Image</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>AI Sketch Studio</h1>
+        <h1>Sketch to Image</h1>
     </header>
     <div class="toolbar">
-        <label>Brush Size: <input type="range" id="brushSize" min="1" max="20" value="5"></label>
-        <label>Color: <input type="color" id="brushColor" value="#ffffff"></label>
-        <button onclick="undo()">Undo</button>
-        <button onclick="clearCanvas()">Clear</button>
-        <button onclick="toggleErase()">Erase</button>
-        <button onclick="saveSketch()">Generate</button>
+        <label for="brushSize">Brush Size:</label>
+        <input type="range" id="brushSize" min="1" max="50" value="5">
+        <label for="brushColor">Brush Color:</label>
+        <input type="color" id="brushColor" value="#000000">
+        <button id="eraseButton">Erase</button>
+        <button id="clearButton">Clear</button>
+        <button id="saveButton">Generate</button>
+        <button id="downloadSketchButton">Download Sketch</button>
+        <button id="downloadGeneratedButton">Download Generated Image</button>
     </div>
     <div class="container">
         <div class="canvas-container">
@@ -25,6 +27,14 @@
         </div>
         <div class="image-container">
             <img id="generatedImage" alt="Generated Image">
+        </div>
+    </div>
+    <div id="promptModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Image Description</h2>
+            <input type="text" id="promptText" placeholder="e.g., 'vibrant forest'">
+            <button id="submitPrompt">Submit</button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
