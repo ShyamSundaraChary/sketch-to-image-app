@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketch to Image</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<<<<<<< HEAD
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+>>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
 </head>
+
 <body>
     <header>
         <h1>Sketch to Image</h1>
     </header>
     <div class="toolbar">
+<<<<<<< HEAD
         <label for="brushSize">Brush Size:</label>
         <input type="range" id="brushSize" min="1" max="50" value="5">
         <label for="brushColor">Brush Color:</label>
@@ -20,9 +28,80 @@
         <button id="saveButton">Generate</button>
         <button id="downloadSketchButton">Download Sketch</button>
         <button id="downloadGeneratedButton">Download Generated Image</button>
+=======
+        <div class="tool-group">
+            <label for="brushSize">
+                <i class="fas fa-paint-brush"></i>
+                Brush Size:
+            </label>
+            <input type="range" id="brushSize" min="1" max="50" value="2">
+            <div class="brush-preview"></div>
+        </div>
+        <div class="tool-group">
+            <label for="brushColor">
+                <i class="fas fa-palette"></i>
+                Color:
+            </label>
+            <input type="color" id="brushColor" value="#000000">
+        </div>
+        <div class="tool-group">
+            <label for="brushOpacity">
+                <i class="fas fa-sliders-h"></i>
+                Opacity:
+            </label>
+            <input type="range" id="brushOpacity" min="0" max="100" value="100">
+        </div>
+        <div class="tool-group">
+            <label for="brushType">
+                <i class="fas fa-pencil-alt"></i>
+                Brush Type:
+            </label>
+            <select id="brushType">
+                <option value="round">Round</option>
+                <option value="square">Square</option>
+                <option value="texture">Texture</option>
+                <option value="charcoal">Charcoal</option>
+                <option value="watercolor">Watercolor</option>
+            </select>
+        </div>
+        <div class="tool-group">
+            <button id="undoButton" aria-label="Undo">
+                <i class="fas fa-undo"></i>
+                Undo
+            </button>
+            <button id="redoButton" aria-label="Redo">
+                <i class="fas fa-redo"></i>
+                Redo
+            </button>
+            <button id="eraseButton" aria-label="Toggle Erase">
+                <i class="fas fa-eraser"></i>
+                Erase
+            </button>
+            <button id="clearButton" aria-label="Clear Canvas">
+                <i class="fas fa-trash"></i>
+                Clear
+            </button>
+        </div>
+        <div class="tool-group">
+            <button id="saveButton" class="generate-btn" aria-label="Generate Image">
+                <i class="fas fa-magic"></i> Generate
+            </button>
+            <button id="downloadSketchButton" aria-label="Download Sketch">
+                <i class="fas fa-download"></i>
+                Download Sketch
+            </button>
+            <button id="downloadGeneratedButton" aria-label="Download Generated Image">
+                <i class="fas fa-image"></i>
+                Download Generated
+            </button>
+        </div>
+>>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
     </div>
     <div class="container">
         <div class="canvas-container">
+            <div class="grid-toggle" id="gridToggle">
+                <i class="fas fa-border-all"></i>
+            </div>
             <canvas id="canvas" width="512" height="512"></canvas>
         </div>
         <div class="image-container">
@@ -31,12 +110,28 @@
     </div>
     <div id="promptModal" class="modal">
         <div class="modal-content">
+<<<<<<< HEAD
             <span class="close">&times;</span>
             <h2>Enter Image Description</h2>
             <input type="text" id="promptText" placeholder="e.g., 'vibrant forest'">
             <button id="submitPrompt">Submit</button>
         </div>
     </div>
+=======
+            <span class="close" id="closeModal">×</span>
+            <h2>Describe Your Drawing</h2>
+            <p>Please provide a description of what you've drawn to help generate the image.</p>
+            <input type="text" id="promptText" placeholder="Enter your description here...">
+            <button id="submitPrompt" class="generate-btn">
+                <i class="fas fa-check"></i> Generate Image
+            </button>
+        </div>
+    </div>
+    <div class="live-preview">
+        <img id="previewImage" alt="Live Preview">
+    </div>
+>>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
