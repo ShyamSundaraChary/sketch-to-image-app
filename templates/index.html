@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketch to Image</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-<<<<<<< HEAD
-=======
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
 </head>
 
 <body>
@@ -18,17 +15,6 @@
         <h1>Sketch to Image</h1>
     </header>
     <div class="toolbar">
-<<<<<<< HEAD
-        <label for="brushSize">Brush Size:</label>
-        <input type="range" id="brushSize" min="1" max="50" value="5">
-        <label for="brushColor">Brush Color:</label>
-        <input type="color" id="brushColor" value="#000000">
-        <button id="eraseButton">Erase</button>
-        <button id="clearButton">Clear</button>
-        <button id="saveButton">Generate</button>
-        <button id="downloadSketchButton">Download Sketch</button>
-        <button id="downloadGeneratedButton">Download Generated Image</button>
-=======
         <div class="tool-group">
             <label for="brushSize">
                 <i class="fas fa-paint-brush"></i>
@@ -95,7 +81,6 @@
                 Download Generated
             </button>
         </div>
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
     </div>
     <div class="container">
         <div class="canvas-container">
@@ -110,14 +95,6 @@
     </div>
     <div id="promptModal" class="modal">
         <div class="modal-content">
-<<<<<<< HEAD
-            <span class="close">&times;</span>
-            <h2>Enter Image Description</h2>
-            <input type="text" id="promptText" placeholder="e.g., 'vibrant forest'">
-            <button id="submitPrompt">Submit</button>
-        </div>
-    </div>
-=======
             <span class="close" id="closeModal">×</span>
             <h2>Describe Your Drawing</h2>
             <p>Please provide a description of what you've drawn to help generate the image.</p>
@@ -130,7 +107,6 @@
     <div class="live-preview">
         <img id="previewImage" alt="Live Preview">
     </div>
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 

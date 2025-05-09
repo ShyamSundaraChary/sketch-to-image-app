@@ -138,9 +138,6 @@ document.getElementById("saveButton").addEventListener("click", openPromptModal)
 document.getElementById("downloadSketchButton").addEventListener("click", downloadSketch);
 document.getElementById("downloadGeneratedButton").addEventListener("click", downloadGeneratedImage);
 
-const modal = document.getElementById("promptModal");
-const closeModal = document.getElementsByClassName("close")[0];
-const submitPrompt = document.getElementById("submitPrompt");
 
 closeModal.onclick = function() {
     modal.style.display = "none";
@@ -242,43 +239,6 @@ function draw(event) {
 }
 
 function clearCanvas() {
-<<<<<<< HEAD
-    ctx.fillStyle = "#1e1e1e";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    isCanvasEmpty = true;
-    paths = [];
-    ctx.beginPath();
-}
-
-function toggleErase() {
-    isErasing = !isErasing;
-    const eraseButton = document.getElementById("eraseButton"); // Target "Erase" button
-    eraseButton.style.background = isErasing 
-        ? "linear-gradient(45deg, #ff4a4a, #ff7878)" 
-        : "linear-gradient(45deg, #00c4cc, #8a4af3)";
-    eraseButton.textContent = isErasing ? "Draw" : "Erase";
-    canvas.style.cursor = isErasing ? "url('eraser-icon.png'), auto" : "crosshair"; // Change cursor to eraser icon
-}
-
-function openPromptModal() {
-    modal.style.display = "block";
-}
-
-function saveSketch(promptText) {
-    if (isCanvasEmpty) {
-        alert("Please draw something before generating!");
-        return;
-    }
-
-    const dataURL = canvas.toDataURL("image/png");
-    fetch(dataURL)
-        .then(res => res.blob())
-        .then(blob => {
-            const file = new File([blob], "sketch.png", { type: "image/png" });
-            const formData = new FormData();
-            formData.append("sketch", file);
-            formData.append("prompt", promptText);
-=======
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   if (showGrid) drawGrid();
@@ -336,7 +296,6 @@ function redo() {
     };
   }
 }
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
 
 function updateLivePreview() {
   const preview = document.querySelector(".live-preview");
@@ -399,28 +358,6 @@ function saveSketch(promptText) {
 }
 
 function downloadSketch() {
-<<<<<<< HEAD
-    const link = document.createElement('a');
-    link.download = 'sketch.png';
-    link.href = canvas.toDataURL();
-    link.click();
-}
-
-function downloadGeneratedImage() {
-    const generatedImage = document.getElementById("generatedImage");
-    if (generatedImage.src) {
-        const link = document.createElement('a');
-        link.download = 'generated_image.png';
-        link.href = generatedImage.src;
-        link.click();
-    } else {
-        alert("No generated image to download.");
-    }
-}
-
-// Initialize canvas
-clearCanvas();
-=======
   const link = document.createElement("a");
   link.download = "sketch.png";
   link.href = canvas.toDataURL();
@@ -441,4 +378,3 @@ function downloadGeneratedImage() {
 
 initializeCanvas();
 updateBrushPreview();
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42

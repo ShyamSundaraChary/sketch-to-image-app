@@ -8,11 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-<<<<<<< HEAD
-CLIPDROP_API_KEY = "2a4b1bc583912ff2fe3dee24f49a5ad44aad87337f91fd64c7e232637d304ada5bf8933d41f965013d453d94c1aeac04"
-=======
 CLIPDROP_API_KEY = os.getenv('CLIPDROP_API_KEY')
->>>>>>> 916018636f0b8841563fe86abc1ec40182e5dd42
 
 @app.route('/')
 def index():
