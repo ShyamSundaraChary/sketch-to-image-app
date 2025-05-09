@@ -91,10 +91,6 @@ canvas.addEventListener(
 document.getElementById("clearButton").addEventListener("click", clearCanvas);
 document.getElementById("eraseButton").addEventListener("click", toggleErase);
 document.getElementById("saveButton").addEventListener("click", () => {
-  if (isCanvasEmpty) {
-    alert("Please draw something before generating!");
-    return;
-  }
   modal.style.display = "block";
 });
 document
@@ -283,32 +279,29 @@ function updateLivePreview() {
 }
 
 function saveSketch(promptText) {
-  if (isCanvasEmpty) {
-    alert("Please draw something before generating!");
-    return;
-  }
-
   const generateButton = document.getElementById("saveButton");
   const originalText = generateButton.innerHTML;
   generateButton.innerHTML =
     '<i class="fas fa-spinner fa-spin"></i> Generating...';
   generateButton.disabled = true;
 
-  const dataURL = canvas.toDataURL("image/png");
-  fetch(dataURL)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const file = new File([blob], "sketch.png", { type: "image/png" });
-      const formData = new FormData();
-      formData.append("sketch", file);
-      formData.append("prompt", promptText);
+  // Get the sketch image as base64 data
+  const sketchData = canvas.toDataURL("image/png");
 
-      return fetch("/generate", { method: "POST", body: formData });
-    })
+  const formData = new FormData();
+  formData.append("prompt", promptText);
+  formData.append("sketch", sketchData);
+
+  fetch("/generate", { method: "POST", body: formData })
     .then((response) => {
       if (!response.ok) {
-        return response.json().then((err) => {
-          throw new Error(err.error || "Unknown error");
+        return response.text().then((text) => {
+          try {
+            const json = JSON.parse(text);
+            throw new Error(json.error || "Unknown error");
+          } catch (e) {
+            throw new Error(text || "Unknown error");
+          }
         });
       }
       return response.blob();
@@ -322,7 +315,12 @@ function saveSketch(promptText) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert(`Error generating image: ${error.message}`);
+      let errorMessage = error.message;
+      if (errorMessage.includes("Internal error")) {
+        errorMessage +=
+          ". This might be a temporary issue with the LightX API. Please try again later.";
+      }
+      alert(`Error generating image: ${errorMessage}`);
     })
     .finally(() => {
       generateButton.innerHTML = originalText;
