@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sketch to Image</title>
+    <title>Text to Image Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <h1>Sketch to Image</h1>
+        <h1>Sketch to Image Generator</h1>
     </header>
     <div class="toolbar">
         <div class="tool-group">
@@ -96,9 +96,11 @@
     <div id="promptModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">×</span>
-            <h2>Describe Your Drawing</h2>
-            <p>Please provide a description of what you've drawn to help generate the image.</p>
-            <input type="text" id="promptText" placeholder="Enter your description here...">
+            <h2>Describe the Image to Generate</h2>
+            <p>Your sketch will be used along with your text description to generate an image. Please provide details
+                about colors, style, and any additional elements you'd like to see in the final image.</p>
+            <input type="text" id="promptText"
+                placeholder="Enter your description here (e.g., a colorful flower in a garden)...">
             <button id="submitPrompt" class="generate-btn">
                 <i class="fas fa-check"></i> Generate Image
             </button>
