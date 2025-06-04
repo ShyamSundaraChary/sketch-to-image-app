@@ -2,10 +2,6 @@
 
 This project allows users to **draw sketches** and generate AI-powered images using the **LightX Sketch-to-Image API**.
 
-## 📸 Demo
-
-![Demo](demo_screenshot.png)
-
 ## ✨ Features
 
 - 🎨 **Canvas Drawing Board** – Draw sketches directly in the browser
