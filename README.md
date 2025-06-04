@@ -53,17 +53,18 @@ Go to http://127.0.0.1:5000/
 
 **UI DrawingBoard:**
 
-![UI](static\temp_images\ui.png)
+![UI](static/temp_images/ui.png)
 
 **Input Sketch:**
 
-![Sketch](static\temp_images\input.png)
+![Sketch](static/temp_images/input.png)
 
 **Generated Image:**
 
-![Result](static\temp_images\output.png)
+![Result](static/temp_images/output.png)
 
 ---
+
 
 
 ## 📝 How to Use
